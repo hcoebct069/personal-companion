@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="transparent">#000f</color>
+    <color name="navDrawer">#333</color>
+    <color name="navDrawerText">#fff</color>
+    <color name="colorPrimary">#49c</color>
+    <color name="colorPrimaryDark">#48b</color>
+    <color name="feedBackground">#fff</color>
+    <color name="feedSelect">#ddd</color>
+    <color name="feedBorder">#ccc</color>
+    <color name="actionBarText">#fff</color>
+    <color name="navDrawerListMain">#000f</color>
+    <color name="navDrawerListSelect">#555</color>
+    <color name="fragmentBG">#efefef</color>
+</resources>
