@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:orientation="vertical"
+	android:background="@color/transparent"
+	android:paddingLeft="5dp"
+	android:paddingTop="5dp"
+	android:paddingRight="5dp"
+	android:paddingBottom="2dp">
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		android:padding="1dp"
+		android:background="@color/feedBorder">
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical"
+			android:padding="0dp"
+			android:background="@drawable/feed_item_selector">
+
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="180dp"
+				android:orientation="vertical">
+				<ImageView
+					android:layout_width="wrap_content"
+					android:layout_height="match_parent"
+					android:id="@+id/feed_image"
+					android:background="@color/transparent"
+					android:src="@mipmap/ic_launcher"
+					android:layout_gravity="center_horizontal" />
+				</LinearLayout>
+			<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:orientation="vertical"
+					android:padding="5dp">
+				<TextView
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:textAppearance="?android:attr/textAppearanceMedium"
+					android:text="Medium Text"
+					android:id="@+id/feed_item_name"
+					android:textStyle="bold" />
+				<TextView
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:textAppearance="?android:attr/textAppearanceMedium"
+					android:text="Medium Text"
+					android:id="@+id/feed_item_desc"/>
+			</LinearLayout>
+		</LinearLayout>
+	</LinearLayout>
+</LinearLayout>
