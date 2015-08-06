@@ -12,6 +12,10 @@ $query_total_population = "SELECT COUNT(id) as tp FROM statistics;";
 $result_total_population = mysqli_query($con, $query_total_population) or die("Error: Cannot COUNT population: ". mysqli_error('$con'));
 $total_population = mysqli_fetch_assoc($result_total_population)['tp'];
 
+//reset
+mysqli_query($con, "TRUNCATE TABLE probabilities_individual;");
+mysqli_query($con, "ALTER TABLE probabilities_individual AUTO_INCREMENT 1;");
+
 while($row = mysqli_fetch_assoc($result_get_factors)){
 	$factor = $row['Field'];
 	if($factor === 'id') continue;
@@ -20,11 +24,14 @@ while($row = mysqli_fetch_assoc($result_get_factors)){
 	while($row2 = mysqli_fetch_assoc($result_factor_distinct)) {
 		$dynamic_query =  "SELECT COUNT(id) as cp FROM statistics WHERE $factor='".$row2[$factor]."';";
 		$result_dynamic_query = mysqli_query($con, $dynamic_query) or die("Error in calculating probability: ". mysqli_error($con));
-		$factors_arr[$factor][$row2[$factor]] = mysqli_fetch_assoc($result_dynamic_query)['cp']/$total_population;
+		$prob_final_individual = mysqli_fetch_assoc($result_dynamic_query)['cp']/$total_population;
+		$insert_query = "INSERT INTO probabilities_individual VALUES(NULL, '$factor', '$row2[$factor]', $prob_final_individual);";
+		mysqli_query($con, $insert_query) or die("Error INSERTing into individual probability: ". mysqli_error($con));
+		$factors_arr[$factor][$row2[$factor]] = $prob_final_individual;
 	}
 }
 
-var_dump($factors_arr);
+echo var_dump($factors_arr);
 //echo "<br>";
 
 
