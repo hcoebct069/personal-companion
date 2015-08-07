@@ -34,18 +34,24 @@ while($row1 = mysqli_fetch_assoc($result_get_model)){
 		foreach($factors_arr[trim($row1['effect'])] as $evidence){
 			$numerator = "SELECT COUNT(id) as numerator FROM statistics WHERE ". $row1['effect']. " = '$evidence' and ". $row1['cause']."= '$cause';";
 			$denominator = "SELECT COUNT(id) as denominator FROM statistics WHERE ". $row1['cause'] . " = '$cause'";
+			$denominator_2 = "SELECT COUNT(id) as denominator_2 FROM statistics WHERE ". $row1['effect']. " = '$evidence'";
 			$result_numerator = mysqli_query($con, $numerator);
 			$result_denominator = mysqli_query($con, $denominator);
-			if(! $result_denominator || ! $result_numerator){
+			$result_denominator_2 = mysqli_query($con, $denominator_2);
+			if(! $result_denominator || ! $result_numerator || !$result_denominator_2){
 				die("Error in COUNT queries: ". mysqli_error($con));
 			}
 			$row_num = mysqli_fetch_assoc($result_numerator);
 			$row_denum = mysqli_fetch_assoc($result_denominator);
+			$row_denum_2 = mysqli_fetch_assoc($result_denominator_2);
 			$numerator = $row_num['numerator'];
 			$denominator = $row_denum['denominator'];
+			$denominator_2 = $row_denum_2['denominator_2'];
 			$prob = $numerator/$denominator;
+			$prob_2 = $numerator/$denominator_2;
 			echo "P(".$row1['effect']."=".$evidence." | ".$row1['cause']." = $cause) = ".$prob . "<br>";
-			$query_insert_prob = "INSERT INTO probabilities VALUES(NULL, ". $row1['id']. ", '$cause', '$evidence', $prob);";
+			echo "P(".$row1['cause']."=".$cause." | ".$row1['effect']." = $evidence) = ".$prob_2 . "<br><hr>";
+			$query_insert_prob = "INSERT INTO probabilities VALUES(NULL, ". $row1['id']. ", '$cause', '$evidence', $prob, $prob_2);";
 			mysqli_query($con, $query_insert_prob) or die("Error INSERTING conditional Probabilities: ". mysqli_error($con));
 			//Parse Float and divide and store in (separate table)
 		}
