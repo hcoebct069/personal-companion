@@ -35,49 +35,49 @@ public class PostFetcher extends AsyncTask<String, Void, JSONArray> {
     JSONArray jsonArray;
 
     @Override
-        protected JSONArray doInBackground(String... params) {
-            try {
-                URL url = new URL(params[0]);
-                //Log.e("THEURL", params[0]);
+    protected JSONArray doInBackground(String... params) {
+        try {
+            URL url = new URL(params[0]);
+            //Log.e("THEURL", params[0]);
 
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                //Log.e("THEURL", "HTTPREQUEST");
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            //Log.e("THEURL", "HTTPREQUEST");
 
-                //conn.setReadTimeout(10000 /* milliseconds */);
-                //conn.setConnectTimeout(15000 /* milliseconds */);
-                conn.setRequestMethod("GET");
-                //Log.e("THEURL", "GETMethod");
-                //conn.setDoInput(true);
-                is = conn.getInputStream();
-                //Log.e("THEURL","GETINPUTSTREAM");
+            //conn.setReadTimeout(10000 /* milliseconds */);
+            //conn.setConnectTimeout(15000 /* milliseconds */);
+            conn.setRequestMethod("GET");
+            //Log.e("THEURL", "GETMethod");
+            //conn.setDoInput(true);
+            is = conn.getInputStream();
+            //Log.e("THEURL","GETINPUTSTREAM");
 
-                conn.connect();
-                //Log.e("THEURL", "Connect");
+            conn.connect();
+            //Log.e("THEURL", "Connect");
 
-                //int response = conn.getResponseCode();
-                Reader reader = null;
-                reader = new InputStreamReader(is, "UTF-8");
-                //Log.e("THEURL", "Reader");
-                //Log.e("THEURL", reader.toString());
-                char[] buffer=new char[500];
-                reader.read(buffer);
-                String output= new String(buffer);
-                String[] op = output.split("<");
-                output=op[0];
-                Log.e("THEURL", "This HERE : "+output);
-                Log.e("THEURL","Converting to ARRAY");
-                jsonArray = new JSONArray(output);
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    Log.e("THEURL", "JSONARRAY : " + jsonArray.getString(i));
-                }
-
-
-
-                //Log.e("THEURL",posts.toString());
-                is.close();
-
-            } catch(Exception ex) {
+            //int response = conn.getResponseCode();
+            Reader reader = null;
+            reader = new InputStreamReader(is, "UTF-8");
+            //Log.e("THEURL", "Reader");
+            //Log.e("THEURL", reader.toString());
+            char[] buffer=new char[1000];
+            reader.read(buffer);
+            String output= new String(buffer);
+            String[] op = output.split("<");
+            output=op[0];
+            Log.e("THEURL", "This HERE : "+output);
+            Log.e("THEURL","Converting to ARRAY");
+            jsonArray = new JSONArray(output);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                Log.e("THEURL", "JSONARRAY : " + jsonArray.getString(i));
             }
-            return jsonArray;
+
+
+
+            //Log.e("THEURL",posts.toString());
+            is.close();
+
+        } catch(Exception ex) {
         }
+        return jsonArray;
+    }
 }

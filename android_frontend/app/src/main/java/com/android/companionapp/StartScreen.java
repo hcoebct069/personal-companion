@@ -37,7 +37,7 @@ public class StartScreen extends AppCompatActivity {
         cBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(),"It seems your OS doesn't support Android TTS. Anyway, Hi!",Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(),"It seems your OS doesn't support Android TTS. Anyway, Hi!",Toast.LENGTH_LONG).show();
                 finish();
             }
         });
