@@ -1,39 +1,35 @@
 package com.android.companionapp;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.net.Uri;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-
+import android.widget.Toast;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
 
     private LinearLayout actionBar;
     private DrawerLayout mDrawerLayout;
@@ -55,8 +51,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-            Intent myIntent = new Intent(MainActivity.this, StartScreen.class);
-            MainActivity.this.startActivity(myIntent);
+            //Intent myIntent = new Intent(MainActivity.this, StartScreen.class);
+            //MainActivity.this.startActivity(myIntent);
 
 
         navList = new ArrayList<NavDrawerItem>();
@@ -89,23 +85,26 @@ public class MainActivity extends AppCompatActivity {
 
         feedList = new ArrayList<Feed>();
         feedMain = (ListView) findViewById(R.id.main_feeds);
-        //new LoadImage().execute("http://www.learn2crack.com/wp-content/uploads/2014/04/node-cover-720x340.png");
-        //Drawable draw= new BitmapDrawable(getResources(), bitmap);
-        feedList.add(new Feed("Title1", "Description", "http://www.keenthemes.com/preview/metronic/theme/assets/global/plugins/jcrop/demos/demo_files/image1.jpg"));
-        feedList.add(new Feed("Title2", "Description", "http://static.guim.co.uk/sys-images/Guardian/Pix/pictures/2014/4/11/1397210130748/Spring-Lamb.-Image-shot-2-011.jpg"));
-        //feedList.add(new FeedItem(bitmap, "Title2", "Description"));
-        //feedList.add(new Feed("Title1","Description","http://localhost/android/2.jpg"));
-        //feedList.add(new Feed("Title2","Description","http://localhost/android/5.jpg"));
 
-        feedAdapter = new FeedAdapter(this,feedList);
-        feedMain.setAdapter(feedAdapter);
+        //feedList.add(new Feed("Title1", "Description", "http://www.keenthemes.com/preview/metronic/theme/assets/global/plugins/jcrop/demos/demo_files/image1.jpg"));
+        //feedList.add(new Feed("Title2", "Description", "http://static.guim.co.uk/sys-images/Guardian/Pix/pictures/2014/4/11/1397210130748/Spring-Lamb.-Image-shot-2-011.jpg"));
+        PostFetcher fetcher = new PostFetcher();
+        JSONArray jsonArray;
+        try {
+            jsonArray = fetcher.execute("http://androidpctest.herobo.com/").get();
+            Log.e("THEURL", "MAINACTIVITY : " + jsonArray.getString(0));
 
-        for(Feed f:feedList){
-            f.loadImage(feedAdapter);
+            displayFeeds(jsonArray);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
-
-
+        //scheduleAlarm("Alarm Set for 10 seconds",10);
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -172,6 +171,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
     private class DrawerItemClickListener implements
             ListView.OnItemClickListener {
         @Override
@@ -182,6 +182,17 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private class FeedItemClickListener implements ListView.OnItemClickListener{
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position,
+                                long id) {
+            Feed feedItem = feedList.get(position);
+            String url = feedItem.getFeedUrl();
+            Intent intent = new Intent(Intent.ACTION_VIEW,Uri.parse(url));
+            startActivity(intent);
+        }
+    }
+
     @Override
     public void onBackPressed(){
         if(getFragmentManager().getBackStackEntryCount()>0) {
@@ -189,5 +200,45 @@ public class MainActivity extends AppCompatActivity {
         }else{
             super.onBackPressed();
         }
+    }
+
+
+
+
+
+
+    public void displayFeeds(JSONArray jsonArray) throws JSONException{
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject jObject = jsonArray.getJSONObject(i);
+            feedList.add(new Feed(jObject.getString("title"), jObject.getString("desc"),jObject.getString("img_url"),jObject.getString("feed_url")));
+        }
+        feedAdapter = new FeedAdapter(this,feedList);
+        feedMain.setAdapter(feedAdapter);
+        feedMain.setOnItemClickListener(new FeedItemClickListener());
+        for(Feed f:feedList){
+            f.loadImage(feedAdapter);
+        }
+    }
+
+    public void scheduleAlarm(String message,int seconds)
+    {
+        // time at which alarm will be scheduled here alarm is scheduled at 1 day from current time,
+        // we fetch  the current time in milliseconds and added 1 day time
+        // i.e. 24*60*60*1000= 86,400,000   milliseconds in a day
+        Long time = new GregorianCalendar().getTimeInMillis()+seconds*1000;
+
+        // create an Intent and set the class which will execute when Alarm triggers, here we have
+        // given AlarmReciever in the Intent, the onRecieve() method of this class will execute when
+        // alarm triggers and
+        //we will write the code to send SMS inside onRecieve() method pf Alarmreciever class
+        Intent intentAlarm = new Intent(this, AlarmReceiver.class).putExtra("rem_title", "Reminder");;
+        intentAlarm.putExtra("rem_desc","Reminder Description");
+        // create the object
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+        //set the alarm for particular time
+        alarmManager.set(AlarmManager.RTC_WAKEUP,time, PendingIntent.getBroadcast(this,1,  intentAlarm, PendingIntent.FLAG_UPDATE_CURRENT));
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+
     }
 }

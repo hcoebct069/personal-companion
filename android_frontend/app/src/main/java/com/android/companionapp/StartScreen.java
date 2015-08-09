@@ -9,26 +9,59 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.speech.tts.TextToSpeech;
+import android.widget.Toast;
+
+import java.util.Locale;
 
 public class StartScreen extends AppCompatActivity {
     Button cBtn;
+    TextToSpeech tt;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_screen);
+
+        tt = new TextToSpeech(getApplicationContext(),new TextToSpeech.OnInitListener(){
+            @Override
+            public void onInit(int status){
+                if(status!=TextToSpeech.ERROR){
+                    tt.setLanguage(Locale.UK);
+                    //tt.speak("Hi", TextToSpeech.QUEUE_FLUSH, null, null);
+                }
+            }
+        });
+
+        //tts("Hi");
         cBtn = (Button) findViewById(R.id.cBtn);
         cBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                //Toast.makeText(getApplicationContext(),"It seems your OS doesn't support Android TTS. Anyway, Hi!",Toast.LENGTH_LONG).show();
+                //finish();
+                ConnectionDetector c = new ConnectionDetector(getApplicationContext());
+                if(c.connected()) {
+                    Intent myIntent = new Intent(StartScreen.this, MainActivity.class);
+                    StartScreen.this.startActivity(myIntent);
+                }else{
+                    Toast.makeText(getApplicationContext(),"It seems your device is not connected to the internet. Make sure you have a working internet connection and then try again.",Toast.LENGTH_LONG).show();
+                }
             }
         });
+    }
+
+    public void onPause(){
+        if(tt!=null){
+            tt.stop();
+            tt.shutdown();
+        }
+        super.onPause();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_start_screen, menu);
+        //getMenuInflater().inflate(R.menu.menu_start_screen, menu);
         return true;
     }
 
@@ -45,5 +78,7 @@ public class StartScreen extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    public void tts(String text){
     }
 }
