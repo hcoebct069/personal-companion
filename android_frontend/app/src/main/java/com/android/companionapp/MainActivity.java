@@ -51,8 +51,8 @@ public class MainActivity extends AppCompatActivity{
         setContentView(R.layout.activity_main);
 
 
-            Intent myIntent = new Intent(MainActivity.this, StartScreen.class);
-            MainActivity.this.startActivity(myIntent);
+            //Intent myIntent = new Intent(MainActivity.this, StartScreen.class);
+            //MainActivity.this.startActivity(myIntent);
 
 
         navList = new ArrayList<NavDrawerItem>();

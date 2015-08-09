@@ -38,7 +38,14 @@ public class StartScreen extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Toast.makeText(getApplicationContext(),"It seems your OS doesn't support Android TTS. Anyway, Hi!",Toast.LENGTH_LONG).show();
-                finish();
+                //finish();
+                ConnectionDetector c = new ConnectionDetector(getApplicationContext());
+                if(c.connected()) {
+                    Intent myIntent = new Intent(StartScreen.this, MainActivity.class);
+                    StartScreen.this.startActivity(myIntent);
+                }else{
+                    Toast.makeText(getApplicationContext(),"It seems your device is not connected to the internet. Make sure you have a working internet connection and then try again.",Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
