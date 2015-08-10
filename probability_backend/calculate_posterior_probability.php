@@ -119,7 +119,7 @@ function operate_on_effects($factor_str, $factor_val){
 	$query = "SELECT effect from model WHERE cause='$factor_str';";
 	$result = mysqli_query($con, $query) or die("Error Selecting Effects: ". mysqli_error($con));
 	while($row = mysqli_fetch_assoc($result)){
-		//if(in_array($row['effect'], $list)) continue;
+		if(in_array($row['effect'], $list)) continue;
 		//needs amemndment here
 		//
 		//
@@ -189,7 +189,7 @@ function operate_on_causes($factor_str, $factor_val){
 	$query = "SELECT cause from model WHERE effect='$factor_str';";
 	$result = mysqli_query($con, $query) or die("Error Selecting Causes: ". mysqli_error($con));
 	while($row = mysqli_fetch_assoc($result)){
-		//if(in_array($row['cause'], $list)) continue;
+		if(in_array($row['cause'], $list)) continue;
 		echo "  Operating on ".$row['cause']." \n";
 		$cause['name'] = $row['cause'];
 		$query2 = "SELECT value from probabilities_individual WHERE factor='".$row['cause']."';";
@@ -202,33 +202,63 @@ function operate_on_causes($factor_str, $factor_val){
 			$result3 = mysqli_query($con, $query3);
 			$model_id = mysqli_fetch_assoc($result3)['id'];
 			$count = 0;
-			$prob_e_c = 0;
-			$prob_e = 0;
+			$prob = 0;
+			//$prob_e = 0;
 			foreach($factor_val as $effect_value => $p_e){
 
-				$query4 = "SELECT probability_effect_cause as pec FROM probabilities WHERE model_id=$model_id AND value_cause='$val' AND value_effect='$effect_value';";
+				//$query4 = "SELECT probability_effect_cause as pec FROM probabilities WHERE model_id=$model_id AND value_cause='$val' AND value_effect='$effect_value';";
 				//echo $query4 . "\n";
 				//echo "P_E should be: ". $factor_val[$effect_value];
 				//echo "\n\n";
-				$result4 = mysqli_query($con, $query4);
-				$p_e_c = mysqli_fetch_assoc($result4)['pec'];
+				//$result4 = mysqli_query($con, $query4);
+				//$p_e_c = mysqli_fetch_assoc($result4)['pec'];
 				//if($p_e == 0) $p_e = 0.00001; //normally when p_e is 0 p_e_c is 0
 				//$prob += $p_e_c * $p_c / $p_e ;
-				$prob_e_c += $p_e_c;
-				$prob_e += $p_e;
+				//$prob_e_c += $p_e_c;
+				//$prob_e += $p_e;
+				//$count++;
+
+				$query4 = "SELECT probability_effect_cause as pec FROM probabilities WHERE model_id=$model_id AND value_cause='$val' AND value_effect='$effect_value';";
+				$result4 = mysqli_query($con, $query4);
+				$p_e_c = mysqli_fetch_assoc($result4)['pec'];
+
+				$query5 = "SELECT probability_effect_cause as pec_2, value_cause as v_c FROM probabilities WHERE model_id=$model_id AND value_effect='$effect_value';";
+				echo  $query5 . "\n";
+				$result5 =mysqli_query($con, $query5) or die("Error in line 153 : ". mysqli_error($con));
+				$sum = 0;
+				while($row5 = mysqli_fetch_assoc($result5)){
+					echo "--- pce_2=".$row5['pec_2']." | prob_independent: ".$probability[$cause['name']][$row5['v_c']]. "\n";
+					$sum += ($row5['pec_2'] * $probability[$cause['name']][$row5['v_c']]);
+				}
+				//check for sanity if sum is still zero, don't f*** up!
+				//
+				if($sum == 0) {$prob += 0;}
+				else{$prob += ($p_e_c * $p_c/$sum);}
+				echo "probability: " . $prob . "\n\n";
+				//$prob += $p_c_e * $p_e / $p_c ;
 				$count++;
 			}
-			$prob_e_c = $prob_e_c;
-			$prob_e = $prob_e;
-			if($prob_e_c == 0){
+			if($prob == 0){
 				$val_p = 0;
 			} else {
-				$val_p = $prob_e_c * $p_c / $prob_e;
+				$val_p = $prob/$count;
 			}
-			$probability[$cause['name']][$val] = $val_p; //$prob/$count;
-			//$query4  = "SELECT * FROM probabilities WHERE model_id=$model_id AND value_cau"
+			echo "[][]FINALPROB:: ". $val_p;
+			$probability_local[$cause['name']][$val] = $val_p; // $prob/$count;
 			$cause['probabilities'][$val] = $val_p; //$prob/$count;
+
+			//$prob_e_c = $prob_e_c;
+			//$prob_e = $prob_e;
+			//if($prob_e_c == 0){
+			//	$val_p = 0;
+			//} else {
+			//	$val_p = $prob_e_c * $p_c / $prob_e;
+			//}
+			//$probability[$cause['name']][$val] = $val_p; //$prob/$count;
+			//$query4  = "SELECT * FROM probabilities WHERE model_id=$model_id AND value_cau"
+			//$cause['probabilities'][$val] = $val_p; //$prob/$count;
 		}
+		$probability[$cause['name']] = $probability_local[$cause['name']];
 		calculate_probabilities($cause);
 	}
 
