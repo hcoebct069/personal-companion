@@ -3206,7 +3206,7 @@
 											"containerExtending": false,
 											"left": -96,
 											"top": -72,
-											"width": 80.9072265625,
+											"width": 81,
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
@@ -3395,7 +3395,7 @@
 									"model": {
 										"$ref": "AAAAAAFO+BXFbie6Eo0="
 									},
-									"visible": true,
+									"visible": false,
 									"enabled": true,
 									"lineColor": "#000000",
 									"fillColor": "#ffffff",
@@ -4580,7 +4580,6 @@
 							"_parent": {
 								"$ref": "AAAAAAFO+BTnliZmIBY="
 							},
-							"name": "Puts question",
 							"end1": {
 								"_type": "UMLAssociationEnd",
 								"_id": "AAAAAAFO+BXFbie7ORs=",
