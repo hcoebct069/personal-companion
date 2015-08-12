@@ -68,12 +68,16 @@ while($row = mysqli_fetch_assoc($result)){
 	$probability[$row['factor']][$row['value']] = $row['probability'];
 }
 
+//$query = "CREATE TABLE temp_probabilities AS SELECT * FROM probabilities;";
+//mysqli_query($con, $query) or die("Cannot create temporary table: ". mysqli_error($con));
+
 
 
 foreach($factors as $factor){
 		//update the individual probability
 		foreach($factor['probabilities'] as $values => $probabilities)
 			$probability[$factor['name']][$values] = $probabilities;
+			$list[] = $factor['name'];
 		//continue; // :D
 }
 
@@ -84,16 +88,16 @@ foreach($factors as $factor){
 function calculate_probabilities($single_factor_array){
 	global $list;
 	//valar morghulis - All functions must die
-	if (isset($list)){
+	/*if (isset($list)){
 		//echo "Yes! Found it! :D \n";
 		if(in_array($single_factor_array['name'], $list)) {
 			//echo "\n\nFound in list\n\n";
 			return;
 		}
-	}
+	}*/
 
 	//add  the current  factor in list
-	$list[] = $single_factor_array['name'];
+	//$list[] = $single_factor_array['name'];
 	//echo "We went there!";
 	//valar daheris - All functions must serve
 	if(is_cause($single_factor_array['name'])){
