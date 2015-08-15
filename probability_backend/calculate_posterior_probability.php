@@ -162,7 +162,7 @@ function operate_on_effects($factor_str, $factor_val){
 				$result4 = mysqli_query($con, $query4);
 				$p_c_e = mysqli_fetch_assoc($result4)['pce'];
 
-				$query5 = "SELECT probability_cause_effect as pce_2, value_effect as v_e FROM probabilities WHERE model_id=$model_id AND value_cause='$cause_value';";
+				/*$query5 = "SELECT probability_cause_effect as pce_2, value_effect as v_e FROM probabilities WHERE model_id=$model_id AND value_cause='$cause_value';";
 				echo  $query5 . "\n";
 				$result5 =mysqli_query($con, $query5) or die("Error in line 153 : ". mysqli_error($con));
 				$sum = 0;
@@ -172,8 +172,10 @@ function operate_on_effects($factor_str, $factor_val){
 				}
 				//check for sanity if sum is still zero, don't f*** up!
 				//
-				if($sum == 0) {$prob += 0;}
-				else{$prob += ($p_c_e * $p_e/$sum);}
+				if($sum == 0) {$prob += 0;}*/
+				//else{
+					$prob += ($p_c_e * $p_e/$probability[$factor_str][$cause_value]);
+				//}
 				echo "probability: " . $prob . "\n\n";
 				//$prob += $p_c_e * $p_e / $p_c ;
 				$count++;
@@ -242,7 +244,7 @@ function operate_on_causes($factor_str, $factor_val){
 				$result4 = mysqli_query($con, $query4);
 				$p_e_c = mysqli_fetch_assoc($result4)['pec'];
 
-				$query5 = "SELECT probability_effect_cause as pec_2, value_cause as v_c FROM probabilities WHERE model_id=$model_id AND value_effect='$effect_value';";
+				/*$query5 = "SELECT probability_effect_cause as pec_2, value_cause as v_c FROM probabilities WHERE model_id=$model_id AND value_effect='$effect_value';";
 				echo  $query5 . "\n";
 				$result5 =mysqli_query($con, $query5) or die("Error in line 153 : ". mysqli_error($con));
 				$sum = 0;
@@ -252,8 +254,10 @@ function operate_on_causes($factor_str, $factor_val){
 				}
 				//check for sanity if sum is still zero, don't f*** up!
 				//
-				if($sum == 0) {$prob += 0;}
-				else{$prob += ($p_e_c * $p_c/$sum);}
+				if($sum == 0) {$prob += 0;}*/
+				//else{
+					$prob += ($p_e_c * $p_c/$probability[$factor_str][$effect_value]);
+				//}
 				echo "probability: " . $prob . "\n\n";
 				//$prob += $p_c_e * $p_e / $p_c ;
 				$count++;
