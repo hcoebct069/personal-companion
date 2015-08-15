@@ -55,6 +55,7 @@ $input = $_POST['json_input'];
 $factors = json_decode($input, true); //true lets us use assoc. arrays
 
 $list;
+$list2;
 /*foreach($factors as $factor){
 	//print_r($factor['name']);
 	$list[] = $factor['name'];
@@ -82,11 +83,12 @@ foreach($factors as $factor){
 }
 
 foreach($factors as $factor){
+	$list2 = NULL;
 	calculate_probabilities($factor);
 }
 
 function calculate_probabilities($single_factor_array){
-	global $list;
+	global $list, $list2;
 	//valar morghulis - All functions must die
 	/*if (isset($list)){
 		//echo "Yes! Found it! :D \n";
@@ -94,6 +96,11 @@ function calculate_probabilities($single_factor_array){
 			//echo "\n\nFound in list\n\n";
 			return;
 		}
+
+	}
+
+	if(isset($list2)){
+		if(in_array($single_factor_array['name'], $list2)) return;
 	}*/
 
 	//add  the current  factor in list
@@ -119,11 +126,12 @@ function calculate_probabilities($single_factor_array){
 }
 
 function operate_on_effects($factor_str, $factor_val){
-	global $con, $list, $probability;
+	global $con, $list, $list2, $probability;
+	$hold_current = NULL; //dummy
 	$query = "SELECT effect from model WHERE cause='$factor_str';";
 	$result = mysqli_query($con, $query) or die("Error Selecting Effects: ". mysqli_error($con));
 	while($row = mysqli_fetch_assoc($result)){
-		if(in_array($row['effect'], $list)) continue;
+		if(in_array($row['effect'], $list) || (isset($list2) && in_array($row['effect'], $list2)) ) continue;
 		//needs amemndment here
 		//
 		//
@@ -183,17 +191,25 @@ function operate_on_effects($factor_str, $factor_val){
 			$effect['probabilities'][$val] = $val_p; //$prob/$count;
 		}
 		$probability[$effect['name']] = $probability_local[$effect['name']];
-		calculate_probabilities($effect);
+		$hold_current[] = $effect;
+		$list2[] = $effect['name'];
+		//calculate_probabilities($effect);
+	}
+
+	if($hold_current == NULL) return;
+	foreach($hold_current as $eff){
+		calculate_probabilities($eff);
 	}
 
 }
 
 function operate_on_causes($factor_str, $factor_val){
-	global $con, $list, $probability;
+	global $con, $list, $list2, $probability;
+	$hold_current = NULL; //dummy
 	$query = "SELECT cause from model WHERE effect='$factor_str';";
 	$result = mysqli_query($con, $query) or die("Error Selecting Causes: ". mysqli_error($con));
 	while($row = mysqli_fetch_assoc($result)){
-		if(in_array($row['cause'], $list)) continue;
+		if(in_array($row['cause'], $list) || (isset($list2) && in_array($row['cause'], $list2)) ) continue;
 		echo "  Operating on ".$row['cause']." \n";
 		$cause['name'] = $row['cause'];
 		$query2 = "SELECT value from probabilities_individual WHERE factor='".$row['cause']."';";
@@ -263,7 +279,13 @@ function operate_on_causes($factor_str, $factor_val){
 			//$cause['probabilities'][$val] = $val_p; //$prob/$count;
 		}
 		$probability[$cause['name']] = $probability_local[$cause['name']];
-		calculate_probabilities($cause);
+		$hold_current[]  = $cause;
+		$list2[] = $cause['name'];
+		//calculate_probabilities($cause);
+	}
+	if($hold_current == NULL) return;
+	foreach($hold_current as $caus){
+		calculate_probabilities($caus);
 	}
 
 }
