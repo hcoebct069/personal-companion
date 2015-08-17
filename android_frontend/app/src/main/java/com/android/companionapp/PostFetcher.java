@@ -6,29 +6,11 @@ package com.android.companionapp;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.StatusLine;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import android.os.AsyncTask;
-import android.os.Bundle;
-import android.app.Activity;
 import android.util.Log;
-import android.view.Menu;
-import android.widget.TextView;
-import android.widget.Toast;
 
 public class PostFetcher extends AsyncTask<String, Void, JSONArray> {
     InputStream is = null;
@@ -49,7 +31,6 @@ public class PostFetcher extends AsyncTask<String, Void, JSONArray> {
             //Log.e("THEURL", "GETMethod");
             //conn.setDoInput(true);
             is = conn.getInputStream();
-            int len = is.available();
             //Log.e("THEURL","GETINPUTSTREAM");
 
             conn.connect();
@@ -58,9 +39,13 @@ public class PostFetcher extends AsyncTask<String, Void, JSONArray> {
             //int response = conn.getResponseCode();
             Reader reader = null;
             reader = new InputStreamReader(is, "UTF-8");
+            //byte[] bytes = IOUtils.toByteArray(is);
+            //byte[] bytes = org.apache.commons.io.IOUtils.toByteArray(is);
+            //int len = bytes.length;
+            //Log.e("THESIZE", bytes.length +" sizes");
             //Log.e("THEURL", "Reader");
             //Log.e("THEURL", reader.toString());
-            char[] buffer=new char[2500];
+            char[] buffer=new char[8000];
             reader.read(buffer);
             String output= new String(buffer);
             String[] op = output.split("<");
