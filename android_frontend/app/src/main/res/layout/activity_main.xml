@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/navToggle"
                 android:src="@drawable/ic_menu_white"
-                android:background="@color/transparent"
+                android:background="@drawable/nav_btn_selector"
                 />
 
             <TextView
@@ -39,7 +39,7 @@
                 android:id="@+id/appName"
                 android:textColor="@color/actionBarText"
                 android:gravity="center_vertical"
-                />
+                android:paddingLeft="10dp" />
 
         </LinearLayout>
 
@@ -76,5 +76,6 @@
         android:divider="@color/transparent"
         android:dividerHeight="0dp"
         android:background="@color/navDrawer"
-        android:listSelector="@drawable/nav_drawer_selector"/>
+        android:listSelector="@drawable/nav_drawer_selector"
+        android:elevation="8dp" />
 </android.support.v4.widget.DrawerLayout>

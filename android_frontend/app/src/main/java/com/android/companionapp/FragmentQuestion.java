@@ -10,10 +10,24 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -26,6 +40,7 @@ public class FragmentQuestion extends Fragment{
     ImageButton navBack;
     public JSONArray jsonArray;
     public PostFetcher fetcher;
+    String qid;
     public FragmentQuestion() {
 
     }
@@ -53,6 +68,7 @@ public class FragmentQuestion extends Fragment{
             @Override
             public void onClick(View v) {
                 fetcher = new PostFetcher();
+                sendAnswer(1);
                 runQuestions();
             }
         });
@@ -60,6 +76,7 @@ public class FragmentQuestion extends Fragment{
             @Override
             public void onClick(View v) {
                 fetcher = new PostFetcher();
+                sendAnswer(2);
                 runQuestions();
             }
         });
@@ -68,6 +85,7 @@ public class FragmentQuestion extends Fragment{
     public void displayQuestions(JSONArray jsonArray) throws JSONException {
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jObject = jsonArray.getJSONObject(i);
+            qid = jObject.getString("qid");
             question.setText(jObject.getString("question"));
             ans1.setText(jObject.getString("answer1"));
             ans2.setText(jObject.getString("answer2"));
@@ -89,5 +107,8 @@ public class FragmentQuestion extends Fragment{
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+    }
+    public void sendAnswer(int ans){
+        new PostSender().execute(qid,String.valueOf(ans));
     }
 }

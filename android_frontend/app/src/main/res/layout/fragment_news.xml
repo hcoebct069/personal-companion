@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/navBack"
             android:src="@drawable/ic_back_icon"
-            android:background="@color/transparent"
+            android:background="@drawable/nav_btn_selector"
             />
 
         <TextView
@@ -27,6 +27,7 @@
             android:id="@+id/fragmentName"
             android:textColor="@color/actionBarText"
             android:gravity="center_vertical"
+            android:paddingLeft="10dp"
             />
     </LinearLayout>
 

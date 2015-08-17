@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/navBack"
             android:src="@drawable/ic_back_icon"
-            android:background="@color/transparent"
+            android:background="@drawable/nav_btn_selector"
             />
 
         <TextView
@@ -27,6 +27,7 @@
             android:id="@+id/fragmentName"
             android:textColor="@color/actionBarText"
             android:gravity="center_vertical"
+            android:paddingLeft="10dp"
             />
     </LinearLayout>
 
@@ -53,7 +54,7 @@
             android:id="@+id/ansf"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
-            android:background="@drawable/button_background"
+            android:background="@drawable/button_blue_selector"
             android:textColor="#fff"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
@@ -66,7 +67,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/anss"
             android:layout_below="@+id/ansf"
-            android:background="@drawable/button_background"
+            android:background="@drawable/button_blue_selector"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="54dp"
             android:textColor="#fff"
