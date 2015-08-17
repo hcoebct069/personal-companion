@@ -49,6 +49,7 @@ public class PostFetcher extends AsyncTask<String, Void, JSONArray> {
             //Log.e("THEURL", "GETMethod");
             //conn.setDoInput(true);
             is = conn.getInputStream();
+            int len = is.available();
             //Log.e("THEURL","GETINPUTSTREAM");
 
             conn.connect();
@@ -59,7 +60,7 @@ public class PostFetcher extends AsyncTask<String, Void, JSONArray> {
             reader = new InputStreamReader(is, "UTF-8");
             //Log.e("THEURL", "Reader");
             //Log.e("THEURL", reader.toString());
-            char[] buffer=new char[1000];
+            char[] buffer=new char[2500];
             reader.read(buffer);
             String output= new String(buffer);
             String[] op = output.split("<");
