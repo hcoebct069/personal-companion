@@ -109,7 +109,7 @@ function calculate_probabilities($single_factor_array){
 	//valar daheris - All functions must serve
 	if(is_cause($single_factor_array['name'])){
 		$f_s = $single_factor_array['name'];
-		echo "'".$f_s . "' is a cause. Operating on it's immediate Effects! \n ";
+		//debug: echo "'".$f_s . "' is a cause. Operating on it's immediate Effects! \n ";
 		$f_v = $single_factor_array['probabilities'];
 		operate_on_effects($f_s, $f_v);
 	}
@@ -118,7 +118,7 @@ function calculate_probabilities($single_factor_array){
 	//- All functions must serve
 	if(is_effect($single_factor_array['name'])){
 		$f_s = $single_factor_array['name'];
-		echo "'".$f_s . "' is a effect. Operating on it's immediate Causes! \n";
+		//debug: echo "'".$f_s . "' is a effect. Operating on it's immediate Causes! \n";
 		$f_v = $single_factor_array['probabilities'];
 		operate_on_causes($f_s, $f_v);
 	}
@@ -139,13 +139,13 @@ function operate_on_effects($factor_str, $factor_val){
 		//
 		//
 		//
-		echo "  Operating on ".$row['effect']." \n";
+		//debug: echo "  Operating on ".$row['effect']." \n";
 		$effect['name'] = $row['effect'];
 		$query2 = "SELECT value from probabilities_individual WHERE factor='".$row['effect']."';";
 		$result2 = mysqli_query($con, $query2) or die("Error selecting vallues from a specific factor: ". mysqli_error($con));
 		while($row2 = mysqli_fetch_assoc($result2)){
 			$val = $row2['value'];
-			echo "Operating on subvalue: ". $val . "\n\n";
+			//debug: echo "Operating on subvalue: ". $val . "\n\n";
 			$p_e = $probability[$effect['name']][$val];
 			//get model id
 			$query3 = "SELECT id from model WHERE cause='$factor_str' AND effect='".$row['effect']."';";
@@ -174,13 +174,17 @@ function operate_on_effects($factor_str, $factor_val){
 				//
 				if($sum == 0) {$prob += 0;}*/
 				//else{
+				if($probability[$factor_str][$cause_value] == 0){
+					$prob += 0;
+				} else {
 					$prob += ($p_c_e * $p_e/$probability[$factor_str][$cause_value]);
+				}
 				//}
-				echo "probability: " . $prob . "\n\n";
+				//debug: echo "probability: " . $prob . "\n\n";
 				//$prob += $p_c_e * $p_e / $p_c ;
 				$count++;
 			}
-			echo "-----------------". $count ."\n\n";
+			//debug: echo "-----------------". $count ."\n\n";
 
 			//$query4  = "SELECT * FROM probabilities WHERE model_id=$model_id AND value_cau"
 			if($prob == 0){
@@ -188,7 +192,7 @@ function operate_on_effects($factor_str, $factor_val){
 			} else {
 				$val_p = $prob/$count;
 			}
-			echo "[][]FINALPROB:: ". $val_p;
+			//debug: echo "[][]FINALPROB:: ". $val_p;
 			$probability_local[$effect['name']][$val] = $val_p; // $prob/$count;
 			$effect['probabilities'][$val] = $val_p; //$prob/$count;
 		}
@@ -212,7 +216,7 @@ function operate_on_causes($factor_str, $factor_val){
 	$result = mysqli_query($con, $query) or die("Error Selecting Causes: ". mysqli_error($con));
 	while($row = mysqli_fetch_assoc($result)){
 		if(in_array($row['cause'], $list) || (isset($list2) && in_array($row['cause'], $list2)) ) continue;
-		echo "  Operating on ".$row['cause']." \n";
+		//debug: echo "  Operating on ".$row['cause']." \n";
 		$cause['name'] = $row['cause'];
 		$query2 = "SELECT value from probabilities_individual WHERE factor='".$row['cause']."';";
 		$result2 = mysqli_query($con, $query2) or die("Error selecting vallues from a specific factor: ". mysqli_error($con));
@@ -256,9 +260,13 @@ function operate_on_causes($factor_str, $factor_val){
 				//
 				if($sum == 0) {$prob += 0;}*/
 				//else{
-					$prob += ($p_e_c * $p_c/$probability[$factor_str][$effect_value]);
+					if($probability[$factor_str][$effect_value] == 0){
+						$prob += 0;
+					} else {
+						$prob += ($p_e_c * $p_c/$probability[$factor_str][$effect_value]);
+					}
 				//}
-				echo "probability: " . $prob . "\n\n";
+				//debug: echo "probability: " . $prob . "\n\n";
 				//$prob += $p_c_e * $p_e / $p_c ;
 				$count++;
 			}
@@ -267,7 +275,7 @@ function operate_on_causes($factor_str, $factor_val){
 			} else {
 				$val_p = $prob/$count;
 			}
-			echo "[][]FINALPROB:: ". $val_p;
+			//debug: echo "[][]FINALPROB:: ". $val_p;
 			$probability_local[$cause['name']][$val] = $val_p; // $prob/$count;
 			$cause['probabilities'][$val] = $val_p; //$prob/$count;
 
@@ -312,7 +320,7 @@ function is_effect($factor_str){
 	return true;
 }
 
-print_r($probability);
+echo json_encode($probability);
 //--ignore after below --
 /*
 
