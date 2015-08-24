@@ -1,9 +1,6 @@
 package com.android.companionapp;
 
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -11,7 +8,6 @@ import android.net.Uri;
 import android.support.v4.widget.DrawerLayout;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,12 +15,10 @@ import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.Toast;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -72,6 +66,7 @@ public class MainActivity extends AppCompatActivity{
         navList.add(new NavDrawerItem("Music", R.drawable.ic_music_note_white));
         navList.add(new NavDrawerItem("Tweets",R.drawable.ic_people_white));
         navList.add(new NavDrawerItem("Questionnaire",R.drawable.ic_question_answer_white));
+        navList.add(new NavDrawerItem("Reminders",R.drawable.ic_add_alert_white));
         navList.add(new NavDrawerItem("Settings", R.drawable.ic_settings_white));
 
         navAdapter = new NavDrawerAdapter(this, R.layout.nav_drawer_item,
@@ -91,8 +86,8 @@ public class MainActivity extends AppCompatActivity{
         PostFetcher fetcher = new PostFetcher();
         JSONArray jsonArray;
         try {
-            jsonArray = fetcher.execute("http://androidpctest.herobo.com/").get();
-            Log.e("THEURL", "MAINACTIVITY : " + jsonArray.getString(0));
+            jsonArray = fetcher.execute("http://10.0.2.2/android/").get();
+            //Log.e("THEURL", "MAINACTIVITY : " + jsonArray.getString(0));
 
             displayFeeds(jsonArray);
         } catch (InterruptedException e) {
@@ -154,6 +149,10 @@ public class MainActivity extends AppCompatActivity{
                 fragment = new FragmentQuestion();
                 break;
             case 5:
+                tag="Reminder";
+                fragment = new FragmentReminder();
+                break;
+            case 6:
                 tag="Settings";
                 fragment = new FragmentSettings();
                 break;
@@ -210,7 +209,7 @@ public class MainActivity extends AppCompatActivity{
     public void displayFeeds(JSONArray jsonArray) throws JSONException{
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jObject = jsonArray.getJSONObject(i);
-            feedList.add(new Feed(jObject.getString("title"), jObject.getString("desc"),jObject.getString("img_url"),jObject.getString("feed_url")));
+            feedList.add(new Feed(jObject.getString("title"), jObject.getString("desc"),jObject.getString("img_url"),jObject.getString("feed_url"),jObject.getString("feed_type")));
         }
         feedAdapter = new FeedAdapter(this,feedList);
         feedMain.setAdapter(feedAdapter);
@@ -220,25 +219,5 @@ public class MainActivity extends AppCompatActivity{
         }
     }
 
-    public void scheduleAlarm(String message,int seconds)
-    {
-        // time at which alarm will be scheduled here alarm is scheduled at 1 day from current time,
-        // we fetch  the current time in milliseconds and added 1 day time
-        // i.e. 24*60*60*1000= 86,400,000   milliseconds in a day
-        Long time = new GregorianCalendar().getTimeInMillis()+seconds*1000;
 
-        // create an Intent and set the class which will execute when Alarm triggers, here we have
-        // given AlarmReciever in the Intent, the onRecieve() method of this class will execute when
-        // alarm triggers and
-        //we will write the code to send SMS inside onRecieve() method pf Alarmreciever class
-        Intent intentAlarm = new Intent(this, AlarmReceiver.class).putExtra("rem_title", "Reminder");;
-        intentAlarm.putExtra("rem_desc","Reminder Description");
-        // create the object
-        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-
-        //set the alarm for particular time
-        alarmManager.set(AlarmManager.RTC_WAKEUP,time, PendingIntent.getBroadcast(this,1,  intentAlarm, PendingIntent.FLAG_UPDATE_CURRENT));
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
-
-    }
 }

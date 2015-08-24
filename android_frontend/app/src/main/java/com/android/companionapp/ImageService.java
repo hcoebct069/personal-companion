@@ -2,7 +2,6 @@ package com.android.companionapp;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.widget.Toast;
 
 import java.io.IOException;
 import java.io.InputStream;

@@ -12,4 +12,5 @@
     <color name="navDrawerListMain">#000f</color>
     <color name="navDrawerListSelect">#555</color>
     <color name="fragmentBG">#efefef</color>
+    <color name="navBtnSelect">#48b</color>
 </resources>
