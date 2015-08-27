@@ -89,3 +89,6 @@ p.desc break{
 p.title.last{
 	text-align: center;
 }
+#pg-n{
+	float: right;
+}
