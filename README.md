@@ -1,6 +1,2 @@
-# personal-companion
-An attempt to use Bayes net and other probabilisitc model to create a personal companion
-
-#How to Edit
-
-Create seperate folder for your module, we will join/manage it later.
+# Final Presentation for "Personal Companion"
+This branch contains the final presentation of our application: "Personal Companion". For the actual code, try switching to "master" branch.
