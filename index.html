@@ -40,29 +40,20 @@
 			<ol>
 				<li>Introduction <p id="pg-n">3</p>
 					<ul>
-						<li>Description <p id="pg-n">4</p></li>
-						<li>Research <p id="pg-n">5</p></li>
+						<li>Under the Hood <p id="pg-n">4</p></li>
+						<li>Motivation <p id="pg-n">12</p></li>
+						<li>Scope <p id="pg-n">15</p></li>
 					</ul>
 				</li>
-				<li>Progress Report <p id="pg-n">6</p>
-					<ul>
-						<li>Work Done <p id="pg-n">7</p></li>
-						<li>Work Remaining <p id="pg-n">8</p></li>
-					</ul>
+				<li>Literature Review <p id="pg-n">16</p>
 				</li>
-				<li>Frontend <p id="pg-n">9</p>
-					<ul>
-						<li>Android Development <p id="pg-n">10</p></li>
-						<li>Workflow <p id="pg-n">11</p></li>
-					</ul>
+				<li>Operational Architecture <p id="pg-n">17</p>
 				</li>
-				<li>Backend <p id="pg-n">12</p>
-					<ul>
-						<li>Probability Model <p id="pg-n">13</p></li>
-						<li>Tag Management <p id="pg-n">15</p></li>
-					</ul>
+				<li>Methodology <p id="pg-n">18</p>
 				</li>
-				<li>Conclusion <p id="pg-n">16</p></li>
+				<li>Limitations <p id="pg-n">19</p></li>
+				<li>Future Enhacements <p id="pg-n">20</p></li>
+				<li>Conclusion <p id="pg-n">21</p></li>
 			</ol>
 		</div>
 		<div class="step" data-x="1500" data-y="0">
@@ -88,7 +79,7 @@
 			<p class="desc">
 				<ul>
 					<li>What is it and Why we chose it?</li>
-					<li>Inference Mechanism in Bayes Net</li>
+					<li>Inference in Bayes Net</li>
 					<li>Our Network</li>
 					<li>Simplifications Made</li>
 				</ul>
@@ -115,78 +106,136 @@
 			</p>
 		</div>
 		<div class="step" data-x="9000" data-y="0">
-			<p class="title">Work Remaining</p>
+			<p class="title">Our Bayes Network</p>
 			<p class="desc">
-				<ul>
-					<li>Connecting tag management to feed generation</li>
-					<li>Mapping questionnaire model to tag management</li>
-					<li>UI refinement and testing</li>
-				</ul>
+				<img src="./img/our_bayes_net.png" alt="Our Bayes Net">
 			</p>
 		</div>
 		<div class="step" data-x="10500" data-y="0">
-			<p class="title">Frontend</p>
+			<p class="title">Simplifications Made</p>
 			<p class="desc">
+				<ul>
+					<li>General Inference needs each node to calculate λ and π </li>
+					<li>Some also tend to use Inference by Enumeration</li>
+					<li>We use General Bayesian Conditional Probability Theorm and recurse over all nodes and update.</li>
+				</ul>
 			</p>
 		</div>
 		<div class="step" data-x="12000" data-y="0">
-			<p class="title">Android Development</p>
+			<p class="title">Tag Based Modelling</p>
 			<p class="desc">
 				<ul>
-					<li>Built in Android Studio</li>
-					<li>Targeted for Android 5 Lollipop</li>
-					<li>Miminum SDK : 4.0.3 ICS (API 15)</li>
+					<li>Most Likely Value of Factors are calculated.</li>
+					<li>Each Value of Factor are now Manually mapped to set of tags.</li>
+					<li>Uses the tags and Social Media's API to generate feeds.</li>
 				</ul>
 			</p>
 		</div>
 		<div class="step" data-x="13500" data-y="0">
-			<p class="title">Workflow</p>
+			<p class="title">Client Server Architecture</p>
 			<p class="desc">
 				<ul>
-					<li>Feed Display</li>
-					<li>Questionnaire Layout</li>
+					<li>Works of Bayes, Tags, and Inference is done in a backend server</li>
+					<li>Frontend on Android communicates with the server to display relevant data</li>
 				</ul>
-				<img src="img/all.jpeg" alt="" style="margin-left:5%;width:90%">
 			</p>
 		</div>
 		<div class="step" data-x="15000" data-y="0">
-			<p class="title">Backend</p>
+			<p class="title">Motivation</p>
 			<p class="desc">
+				<ul>
+					<li>Current Virtual Assistants</li>
+					<li>Extending their Functionality in Easy Way</li>
+				</ul>
 			</p>
 		</div>
 		<div class="step" data-x="16500" data-y="0">
-			<p class="title">Probability Model</p>
+			<p class="title">Current Virtual Assistants</p>
 			<p class="desc">
 				<ul>
-					<li>Simple implementation of Bayesian Network</li>
-					<li>Personality factors (age, gender, etc) based cause and effect model</li>
-					<li>Prior and Posterior Probability Calculation</li>
-					<li>Conditional Probability Table Lookup</li>
+					<li>Siri, Cortana, Google Now</li>
+					<li>Responds to pre-known Commands</li>
+					<li>Intelligent Because of Service Integration</li>
+					<li>Different Approach to Personalization</li>
 				</ul>
 			</p>
 		</div>
 		<div class="step" data-x="18000" data-y="0">
-			<p class="title">Sample CPT</p>
-			<center>
-				<img src="img/cpt.jpg">
-			</center>
-		</div>
-		<div class="step" data-x="19500" data-y="0">
-			<p class="title">Tag Management</p>
+			<p class="title">Extending Functionality</p>
 			<p class="desc">
 				<ul>
-					<li>Tags assignment for different personality factors</li>
-					<li>Tag assignment helper interface</li>
+					<li>Personalized Touch</li>
+					<li>Use of Simple Inference in Bayes Net</li>
+					<li>Uses Above mentioned techniques to get relevant data.</li>
+					<li>Ultimately: App has prediction about user's personality</li>
+				</ul>
+			</p>
+		</div>
+		<div class="step" data-x="19500" data-y="0">
+			<p class="title">Scope</p>
+			<p class="desc">
+				<ul>
+					<li>Personalized Touch to Applications</li>
+					<li>Can be used in commercial field</li>
+					<li>Concept can be extended to check user's biasness towards certain characterstics in a certain product.</li>
 				</ul>
 			</p>
 		</div>
 		<div class="step" data-x="21000" data-y="0">
+			<p class="title">Literature Review</p>
+			<p class="desc">
+				<ul>
+					<li>Feasibility of Manually Created Network</li>
+					<li>Papers tend to focus on decision making by personality prediction</li>
+					<li>Some tend to use it in reactive-way</li>
+					<li>We focus more on making devices and apps personalized</li>
+				</ul>
+			</p>
+		</div>
+		<div class="step" data-x="22500" data-y="0">
+			<p class="title">Operational Architecture</p>
+			<p class="desc">
+				<img src="./img/op_arch.png" alt="Operational Architecture">
+			</p>
+		</div>
+		<div class="step" data-x="24000",data-y="0">
+			<p class="title">Methodology</p>
+			<p class="desc">
+				<ul>
+					<li>Agile, Pair Programming</li>
+					<li>Backend: PHP, MySQL</li>
+					<li>Frontend: Android (Java)</li>
+					<li>Connection with RESTful API</li>
+				</ul>
+			</p>
+		</div>
+		<div class="step" data-x="25500", data-y="0">
+			<p class="title">Limitations</p>
+			<p class="desc">
+				<ul>
+					<li>Only Minimal Implementation</li>
+					<li>Messy Code Base, Inefficient Implementation</li>
+					<li>Limited Functionality, Uses too simple Probability Calculation Technique</li>
+				</ul>
+			</p>
+		</div>
+		<div class="step" data-x="27000",data-y="0">
+			<p class="title">Future Enhacements</p>
+			<p class="desc">
+				<ul>
+					<li>Overcome Limitations First</li>
+					<li>Add Text-To-Speech</li>
+					<li>Adding Voice Input and NLP</li>
+				</ul>
+			</p>
+		</div>
+		<div class="step" data-x="28500",data-y="0">
 			<p class="title">Conclusion</p>
 			<p class="desc">
 			</p>
 		</div>
-		<div class="step" data-x="22500" data-y="0">
-			<p class="title last">Thank You!</p>
+		<div class="step" data-x="30000", data-y="0">
+			<p class="title last">Thank you!</p>
 		</div>
 
 	</div>
