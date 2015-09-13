@@ -26,10 +26,10 @@
 			</ul>
 			<ul class="tm">
 				<p><strong>Team Members</strong></p>
-				<li>Nishan Bajracharya | BCT-069-20</li>
-				<li>Nootan Ghimire | BCT-069-21</li>
-				<li>Suraj Gyawali | BCT-069-45</li>
-				<li>Umesh Acharya | BCT-069-47</li>
+				<li>Nishan Bajracharya | 27410</li>
+				<li>Nootan Ghimire | 27411</li>
+				<li>Suraj Gyawali | 27426</li>
+				<li>Umesh Acharya | 27427</li>
 			</ul>
 
 			<p id="date">Presented On : 15<sup>th</sup> September 2015</p>
@@ -38,23 +38,22 @@
 		<div class="step toc" data-x="0" data-y="0">
 			<p class="title">Overview</p>
 			<ol>
-				<li>Introduction <p id="pg-n">3</p>
+				<li>Introduction <p id="pg-n">03</p>
 					<ul>
-						<li>Under the Hood <p id="pg-n">4</p></li>
-						<li>Motivation <p id="pg-n">12</p></li>
-						<li>Scope <p id="pg-n">15</p></li>
+						<li>Motivation <p id="pg-n">04</p></li>
+						<li>Scope <p id="pg-n">07</p></li>
 					</ul>
 				</li>
-				<li>Literature Review <p id="pg-n">16</p>
+				<li>Literature Review <p id="pg-n">08</p>
 				</li>
-				<li>Operational Architecture <p id="pg-n">17</p>
+				<li>Methodology<p id="pg-n">09</p>
 				</li>
-				<li>Methodology <p id="pg-n">18</p>
+				<li>Tools Used<p id="pg-n">17</p>
 				</li>
-				<li>Limitations <p id="pg-n">19</p></li>
-				<li>Future Enhacements <p id="pg-n">20</p></li>
-				<li>Conclusion <p id="pg-n">21</p></li>
-				<li>References <p id="pg-n">22</p></li>
+				<li>Limitations <p id="pg-n">18</p></li>
+				<li>Future Enhacements <p id="pg-n">19</p></li>
+				<li>Conclusion <p id="pg-n">20</p></li>
+				<li>References <p id="pg-n">21</p></li>
 			</ol>
 		</div>
 		<div class="step" data-x="1500" data-y="0">
@@ -140,7 +139,7 @@
 		<div class="step" data-x="13500" data-y="0">
 			<p class="title">Our Bayes Net</p>
 			<p class="desc">
-				<img src="our_bayes_net.png" alt="Our Bayes Net">
+				<img src="img/our_bayes_net.png" alt="Our Bayes Net">
 			</p>
 		</div>
 		<div class="step" data-x="15000" data-y="0">
@@ -149,12 +148,14 @@
 				<ul>
 					<li>calculate_prior_probability</li>
 					<li>calculate_posterior_probability</li>
-					<li></li>
+					<li>add_tags</li>
+					<li>insert_connection</li>
+					<li>get_tags</li>
 				</ul>
 			</p>
 		</div>
 		<div class="step" data-x="16500" data-y="0">
-			<p class="title">Current Virtual Assistants</p>
+			<p class="title">Modules - Client</p>
 			<p class="desc">
 				<ul>
 					<li>Siri, Cortana, Google Now</li>
@@ -165,80 +166,76 @@
 			</p>
 		</div>
 		<div class="step" data-x="18000" data-y="0">
-			<p class="title">Extending Functionality</p>
+			<p class="title">Sample Input to Server</p>
 			<p class="desc">
-				<ul>
-					<li>Personalized Touch</li>
-					<li>Use of Simple Inference in Bayes Net</li>
-					<li>Uses Above mentioned techniques to get relevant data.</li>
-					<li>Ultimately: App has prediction about user's personality</li>
-				</ul>
+				<pre style="font-size:20px;">
+				[
+				  {
+				    "name":"factor_name",
+				    "probabilities": {
+				      "key1":value,
+				      .
+				      .
+				      .
+				      "keyn":value
+				    }
+				  },
+				  .
+				  .
+				  .
+				]
+				</pre>
 			</p>
 		</div>
 		<div class="step" data-x="19500" data-y="0">
-			<p class="title">Scope</p>
+			<p class="title">Sample Output - Server (Probability Calculations)</p>
 			<p class="desc">
-				<ul>
-					<li>Personalized Touch to Applications</li>
-					<li>Can be used in commercial field</li>
-					<li>Concept can be extended to check user's biasness towards certain characterstics in a certain product.</li>
-				</ul>
+				<img src="img/output_server.png" alt="Sample Output" style="margin-left:-100px; width:1200px; height:400px;">
 			</p>
 		</div>
 		<div class="step" data-x="21000" data-y="0">
-			<p class="title">Literature Review</p>
+			<p class="title">Sample Output - Client (Screenshots)</p>
 			<p class="desc">
-				<ul>
-					<li>Feasibility of Manually Created Network</li>
-					<li>Papers tend to focus on decision making by personality prediction</li>
-					<li>Some tend to use it in reactive-way</li>
-					<li>We focus more on making devices and apps personalized</li>
-				</ul>
+				<img src="img/all.jpeg" alt="" style="width:900px;height:400px;">
 			</p>
 		</div>
 		<div class="step" data-x="22500" data-y="0">
-			<p class="title">Operational Architecture</p>
+			<p class="title">Tools Used</p>
 			<p class="desc">
-				<img src="./img/op_arch.png" alt="Operational Architecture">
+				<ul>
+					<li>Agile, Pair Programming, Client/Server</li>
+					<li>Frontend: Client: Android (Java)</li>
+					<li>Server: Probability Processing: PHP</li>
+					<li>Database Server: MySQL </li>
+					<li>Interfacing with RESTful API (JSON)</li>
+				</ul>
 			</p>
 		</div>
 		<div class="step" data-x="24000",data-y="0">
-			<p class="title">Methodology</p>
+			<p class="title">Limitations</p>
 			<p class="desc">
 				<ul>
-					<li>Agile, Pair Programming</li>
-					<li>Backend: PHP, MySQL</li>
-					<li>Frontend: Android (Java)</li>
-					<li>Connection with RESTful API</li>
+					<li>Inaccurate Data for Modelling</li>
+					<li>Static Tag Mapping</li>
 				</ul>
 			</p>
 		</div>
 		<div class="step" data-x="25500", data-y="0">
-			<p class="title">Limitations</p>
-			<p class="desc">
-				<ul>
-					<li>Only Minimal Implementation</li>
-					<li>Messy Code Base, Inefficient Implementation</li>
-					<li>Limited Functionality, Uses too simple Probability Calculation Technique</li>
-				</ul>
-			</p>
-		</div>
-		<div class="step" data-x="27000",data-y="0">
 			<p class="title">Future Enhacements</p>
 			<p class="desc">
 				<ul>
-					<li>Overcome Limitations First</li>
+					<li>Overcome Limitations</li>
 					<li>Add Text-To-Speech</li>
 					<li>Adding Voice Input and NLP</li>
 				</ul>
 			</p>
 		</div>
-		<div class="step" data-x="28500",data-y="0">
+		<div class="step" data-x="27000",data-y="0">
 			<p class="title">Conclusion</p>
 			<p class="desc">
 			</p>
 		</div>
-		<div class="step" data-x="30000", data-y="0">
+		<div class="step" data-x="28500",data-y="0">
 			<p class="title">References</p>
 			<p class="desc">
 			<ul>
@@ -256,7 +253,7 @@
 			</ul>
 			</p>
 		</div>
-		<div class="step" data-x="31500", data-y="0">
+		<div class="step" data-x="30000", data-y="0">
 			<p class="title last">Thank you!</p>
 		</div>
 
