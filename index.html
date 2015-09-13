@@ -19,10 +19,10 @@
 		<div class="step cover" data-x="-1500" data-y="0">
 			<p class="main">A Presentation on <b>Personal Companion</b></p>
 			<ul class="sup">
-				<p><strong>Supervisors</strong></p>
+				<p><strong>Supervisor</strong></p>
 				<li>Ishwar Dhungana</li>
-				<li>Rajiv Shrestha</li>
-				<li>Surakshya Neupane</li>
+				<!--<li>Rajiv Shrestha</li>
+				<li>Surakshya Neupane</li>-->
 			</ul>
 			<ul class="tm">
 				<p><strong>Team Members</strong></p>
@@ -32,7 +32,7 @@
 				<li>Umesh Acharya | BCT-069-47</li>
 			</ul>
 
-			<p id="date">Presented On : 10th September 2015</p>
+			<p id="date">Presented On : 15<sup>th</sup> September 2015</p>
 			<p id="url">https://hcoebct069.github.io/personal-companion/</p>
 		</div>
 		<div class="step toc" data-x="0" data-y="0">
@@ -66,87 +66,90 @@
 			</p>
 		</div>
 		<div class="step" data-x="3000" data-y="0">
-			<p class="title">Under the Hood</p>
-			<p class="desc">
-				<ul>
-					<li>Bayesian Network and Inference</li>
-					<li>Tag Based Modelling</li>
-					<li>Client-Server Architecture</li>
-				</ul>
-			</p>
-		</div>
-		<div class="step" data-x="4500" data-y="0">
-			<p class="title">Bayesian Network and Inference</p>
-			<p class="desc">
-				<ul>
-					<li>What is it and Why we chose it?</li>
-					<li>Inference in Bayes Net</li>
-					<li>Our Network</li>
-					<li>Simplifications Made</li>
-				</ul>
-			</p>
-		</div>
-		<div class="step" data-x="6000" data-y="0">
-			<p class="title">Bayesian Network</p>
-			<p class="desc">
-			<ul>
-				<li>Directed Acyclic Graph</li>
-				<li>Also a Model</li>
-				<li>Can be used to Model Almost Anything</li>
-			</ul>
-			</p>
-		</div>
-		<div class="step" data-x="7500" data-y="0">
-			<p class="title">Inference in Bayes Net</p>
-			<p class="desc">
-				<ul>
-					<li>Major Part that has application in AI</li>
-					<li>Uses Conditional Probability Theorem</li>
-					<li>Independence Relations to Simplify Operations</li>
-				</ul>
-			</p>
-		</div>
-		<div class="step" data-x="9000" data-y="0">
-			<p class="title">Our Bayes Network</p>
-			<p class="desc">
-				<img src="./img/our_bayes_net.png" alt="Our Bayes Net">
-			</p>
-		</div>
-		<div class="step" data-x="10500" data-y="0">
-			<p class="title">Simplifications Made</p>
-			<p class="desc">
-				<ul>
-					<li>General Inference needs each node to calculate λ and π </li>
-					<li>Some also tend to use Inference by Enumeration</li>
-					<li>We use General Bayesian Conditional Probability Theorm and recurse over all nodes and update.</li>
-				</ul>
-			</p>
-		</div>
-		<div class="step" data-x="12000" data-y="0">
-			<p class="title">Tag Based Modelling</p>
-			<p class="desc">
-				<ul>
-					<li>Most Likely Value of Factors are calculated.</li>
-					<li>Each Value of Factor are now Manually mapped to set of tags.</li>
-					<li>Uses the tags and Social Media's API to generate feeds.</li>
-				</ul>
-			</p>
-		</div>
-		<div class="step" data-x="13500" data-y="0">
-			<p class="title">Client Server Architecture</p>
-			<p class="desc">
-				<ul>
-					<li>Works of Bayes, Tags, and Inference is done in a backend server</li>
-					<li>Frontend on Android communicates with the server to display relevant data</li>
-				</ul>
-			</p>
-		</div>
-		<div class="step" data-x="15000" data-y="0">
 			<p class="title">Motivation</p>
 			<p class="desc">
 				<ul>
 					<li>Current Virtual Assistants</li>
 					<li>Extending their Functionality in Easy Way</li>
+				</ul>
+			</p>
+		</div>
+		<div class="step" data-x="4500" data-y="0">
+			<p class="title">Current Virtual Assistants</p>
+			<p class="desc">
+				<ul>
+					<li>Siri, Cortana, Google Now</li>
+					<li>Responds to pre-known Commands</li>
+					<li>Intelligent Because of Service Integration</li>
+					<li>Different Approach to Personalization</li>
+				</ul>
+			</p>
+		</div>
+		<div class="step" data-x="6000" data-y="0">
+			<p class="title">Extending Functionality</p>
+			<p class="desc">
+				<ul>
+					<li>Personalized Touch</li>
+					<li>Use of Simple Inference in Bayes Net</li>
+					<li>Uses Above mentioned techniques to get relevant data.</li>
+					<li>Ultimately: App has prediction about user's personality</li>
+				</ul>
+			</p>
+		</div>
+		<div class="step" data-x="7500" data-y="0">
+			<p class="title">Scope</p>
+			<p class="desc">
+				<ul>
+					<li>Personalized Touch to Applications</li>
+					<li>Can be used in commercial field</li>
+					<li>Concept can be extended to check user's biasness towards certain characterstics in a certain product.</li>
+				</ul>
+			</p>
+		</div>
+		<div class="step" data-x="9000" data-y="0">
+			<p class="title">Literature Review</p>
+			<p class="desc">
+				<ul>
+					<li>Feasibility of Manually Created Network</li>
+					<li>Papers tend to focus on decision making by personality prediction</li>
+					<li>Some tend to use it in reactive-way</li>
+					<li>We focus more on making devices and apps personalized</li>
+				</ul>
+			</p>
+		</div>
+		<div class="step" data-x="10500" data-y="0">
+			<p class="title">Methodology</p>
+			<p class="desc">
+				<ul>
+					<li>Process Flow</li>
+					<li>Our Bayes Net</li>
+					<li>Modules - Server</li>
+					<li>Modules - Client</li>
+					<li>Sample Input</li>
+					<li>Sample Output - Server Side</li>
+					<li>Sample Output - Client Side</li>
+				</ul>
+			</p>
+		</div>
+		<div class="step" data-x="12000" data-y="0">
+			<p class="title">Process Flow</p>
+			<p class="desc">
+				<img src="img/op_arch.png" alt="Process Flow">
+			</p>
+		</div>
+		<div class="step" data-x="13500" data-y="0">
+			<p class="title">Our Bayes Net</p>
+			<p class="desc">
+				<img src="our_bayes_net.png" alt="Our Bayes Net">
+			</p>
+		</div>
+		<div class="step" data-x="15000" data-y="0">
+			<p class="title">Modules - Server</p>
+			<p class="desc">
+				<ul>
+					<li>calculate_prior_probability</li>
+					<li>calculate_posterior_probability</li>
+					<li></li>
 				</ul>
 			</p>
 		</div>
@@ -260,7 +263,7 @@
 	</div>
 	<p id="page"></p>
 
-	<p id="main-date">10th September 2015</p>
+	<p id="main-date">15<sup>th</sup> September 2015</p>
 	<script src="js/impress.js"></script>
 	<script src="js/jquery.min.js"></script>
 	<script>impress().init();</script>
