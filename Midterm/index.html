@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=1360" />
+	<title>A presentation on Personal Companion - Minor Project</title>
+
+	<link href="css/impress.css" rel="stylesheet" />
+	<link href="css/impress-custom.css" rel="stylesheet" />
+</head>
+
+<body class="impress-not-supported" oncontextmenu="return false;">
+
+	<div class="fallback-message">
+		<p>Your browser <b>doesn't support the features required</b> by impress.js, so you are presented with a simplified version of this presentation.</p>
+		<p>For the best experience please use the latest <b>Chrome</b>, <b>Safari</b> or <b>Firefox</b> browser.</p>
+	</div>
+	<div id="impress">
+		<div class="step cover" data-x="-1500" data-y="0">
+			<p class="main">A Presentation on <b>Personal Companion</b></p>
+			<ul class="sup">
+				<p><strong>Supervisors</strong></p>
+				<li>Ishwar Dhungana</li>
+				<li>Rajiv Shrestha</li>
+				<li>Surakshya Neupane</li>
+			</ul>
+			<ul class="tm">
+				<p><strong>Team Members</strong></p>
+				<li>Nishan Bajracharya | BCT-069-20</li>
+				<li>Nootan Ghimire | BCT-069-21</li>
+				<li>Suraj Gyawali | BCT-069-45</li>
+				<li>Umesh Acharya | BCT-069-47</li>
+			</ul>
+
+			<p id="date">Presented On : 10th September 2015</p>
+			<p id="url">https://hcoebct069.github.io/personal-companion/</p>
+		</div>
+		<div class="step toc" data-x="0" data-y="0">
+			<p class="title">Overview</p>
+			<ol>
+				<li>Introduction <p id="pg-n">3</p>
+					<ul>
+						<li>Under the Hood <p id="pg-n">4</p></li>
+						<li>Motivation <p id="pg-n">12</p></li>
+						<li>Scope <p id="pg-n">15</p></li>
+					</ul>
+				</li>
+				<li>Literature Review <p id="pg-n">16</p>
+				</li>
+				<li>Operational Architecture <p id="pg-n">17</p>
+				</li>
+				<li>Methodology <p id="pg-n">18</p>
+				</li>
+				<li>Limitations <p id="pg-n">19</p></li>
+				<li>Future Enhacements <p id="pg-n">20</p></li>
+				<li>Conclusion <p id="pg-n">21</p></li>
+				<li>References <p id="pg-n">22</p></li>
+			</ol>
+		</div>
+		<div class="step" data-x="1500" data-y="0">
+			<p class="title">Introduction</p>
+			<p class="desc">
+				Personal Companion is an app that uses <strong>questionnaire based personality modelling</strong> to <strong>recommend feeds</strong> to the user.
+				<break></break>
+				The app will recommend <strong>news articles, tweets and music</strong> based on the user's personality traits.
+			</p>
+		</div>
+		<div class="step" data-x="3000" data-y="0">
+			<p class="title">Under the Hood</p>
+			<p class="desc">
+				<ul>
+					<li>Bayesian Network and Inference</li>
+					<li>Tag Based Modelling</li>
+					<li>Client-Server Architecture</li>
+				</ul>
+			</p>
+		</div>
+		<div class="step" data-x="4500" data-y="0">
+			<p class="title">Bayesian Network and Inference</p>
+			<p class="desc">
+				<ul>
+					<li>What is it and Why we chose it?</li>
+					<li>Inference in Bayes Net</li>
+					<li>Our Network</li>
+					<li>Simplifications Made</li>
+				</ul>
+			</p>
+		</div>
+		<div class="step" data-x="6000" data-y="0">
+			<p class="title">Bayesian Network</p>
+			<p class="desc">
+			<ul>
+				<li>Directed Acyclic Graph</li>
+				<li>Also a Model</li>
+				<li>Can be used to Model Almost Anything</li>
+			</ul>
+			</p>
+		</div>
+		<div class="step" data-x="7500" data-y="0">
+			<p class="title">Inference in Bayes Net</p>
+			<p class="desc">
+				<ul>
+					<li>Major Part that has application in AI</li>
+					<li>Uses Conditional Probability Theorem</li>
+					<li>Independence Relations to Simplify Operations</li>
+				</ul>
+			</p>
+		</div>
+		<div class="step" data-x="9000" data-y="0">
+			<p class="title">Our Bayes Network</p>
+			<p class="desc">
+				<img src="./img/our_bayes_net.png" alt="Our Bayes Net">
+			</p>
+		</div>
+		<div class="step" data-x="10500" data-y="0">
+			<p class="title">Simplifications Made</p>
+			<p class="desc">
+				<ul>
+					<li>General Inference needs each node to calculate λ and π </li>
+					<li>Some also tend to use Inference by Enumeration</li>
+					<li>We use General Bayesian Conditional Probability Theorm and recurse over all nodes and update.</li>
+				</ul>
+			</p>
+		</div>
+		<div class="step" data-x="12000" data-y="0">
+			<p class="title">Tag Based Modelling</p>
+			<p class="desc">
+				<ul>
+					<li>Most Likely Value of Factors are calculated.</li>
+					<li>Each Value of Factor are now Manually mapped to set of tags.</li>
+					<li>Uses the tags and Social Media's API to generate feeds.</li>
+				</ul>
+			</p>
+		</div>
+		<div class="step" data-x="13500" data-y="0">
+			<p class="title">Client Server Architecture</p>
+			<p class="desc">
+				<ul>
+					<li>Works of Bayes, Tags, and Inference is done in a backend server</li>
+					<li>Frontend on Android communicates with the server to display relevant data</li>
+				</ul>
+			</p>
+		</div>
+		<div class="step" data-x="15000" data-y="0">
+			<p class="title">Motivation</p>
+			<p class="desc">
+				<ul>
+					<li>Current Virtual Assistants</li>
+					<li>Extending their Functionality in Easy Way</li>
+				</ul>
+			</p>
+		</div>
+		<div class="step" data-x="16500" data-y="0">
+			<p class="title">Current Virtual Assistants</p>
+			<p class="desc">
+				<ul>
+					<li>Siri, Cortana, Google Now</li>
+					<li>Responds to pre-known Commands</li>
+					<li>Intelligent Because of Service Integration</li>
+					<li>Different Approach to Personalization</li>
+				</ul>
+			</p>
+		</div>
+		<div class="step" data-x="18000" data-y="0">
+			<p class="title">Extending Functionality</p>
+			<p class="desc">
+				<ul>
+					<li>Personalized Touch</li>
+					<li>Use of Simple Inference in Bayes Net</li>
+					<li>Uses Above mentioned techniques to get relevant data.</li>
+					<li>Ultimately: App has prediction about user's personality</li>
+				</ul>
+			</p>
+		</div>
+		<div class="step" data-x="19500" data-y="0">
+			<p class="title">Scope</p>
+			<p class="desc">
+				<ul>
+					<li>Personalized Touch to Applications</li>
+					<li>Can be used in commercial field</li>
+					<li>Concept can be extended to check user's biasness towards certain characterstics in a certain product.</li>
+				</ul>
+			</p>
+		</div>
+		<div class="step" data-x="21000" data-y="0">
+			<p class="title">Literature Review</p>
+			<p class="desc">
+				<ul>
+					<li>Feasibility of Manually Created Network</li>
+					<li>Papers tend to focus on decision making by personality prediction</li>
+					<li>Some tend to use it in reactive-way</li>
+					<li>We focus more on making devices and apps personalized</li>
+				</ul>
+			</p>
+		</div>
+		<div class="step" data-x="22500" data-y="0">
+			<p class="title">Operational Architecture</p>
+			<p class="desc">
+				<img src="./img/op_arch.png" alt="Operational Architecture">
+			</p>
+		</div>
+		<div class="step" data-x="24000",data-y="0">
+			<p class="title">Methodology</p>
+			<p class="desc">
+				<ul>
+					<li>Agile, Pair Programming</li>
+					<li>Backend: PHP, MySQL</li>
+					<li>Frontend: Android (Java)</li>
+					<li>Connection with RESTful API</li>
+				</ul>
+			</p>
+		</div>
+		<div class="step" data-x="25500", data-y="0">
+			<p class="title">Limitations</p>
+			<p class="desc">
+				<ul>
+					<li>Only Minimal Implementation</li>
+					<li>Messy Code Base, Inefficient Implementation</li>
+					<li>Limited Functionality, Uses too simple Probability Calculation Technique</li>
+				</ul>
+			</p>
+		</div>
+		<div class="step" data-x="27000",data-y="0">
+			<p class="title">Future Enhacements</p>
+			<p class="desc">
+				<ul>
+					<li>Overcome Limitations First</li>
+					<li>Add Text-To-Speech</li>
+					<li>Adding Voice Input and NLP</li>
+				</ul>
+			</p>
+		</div>
+		<div class="step" data-x="28500",data-y="0">
+			<p class="title">Conclusion</p>
+			<p class="desc">
+			</p>
+		</div>
+		<div class="step" data-x="30000", data-y="0">
+			<p class="title">References</p>
+			<p class="desc">
+			<ul>
+				<li style="font-size:20px;">"Bayesian Networks" - Technical Report by M. Horný . Boston University</li>
+				<li style="font-size:20px;">"Bayesian Networks: Independencies and Inference" - Presentation by S. Davis and A.Moore</li>
+				<li style="font-size:20px;">"Bayesian Networks for Modeling Emotional State and Personality" by J. Breese and G. Ball, Microsoft Research.</li>
+				<li style="font-size:20px;">"Bayesian Model of the Effect of Personality in Predicting Decisionmaker Behavior" - Article by P. J. Sticha and others.</li>
+				<li style="font-size:20px;">"Unwrap Cortana's Easter Eggs" - www.cnet.com/pictures/cortana-easter-eggs</li>
+				<li style="font-size:20px;">"24 Ways to Get Siri Bring Out Her True Sassiness" - www.buzzfeed.com/mackenziekruvant/siri-is-one-sassy-broad</li>
+				<li style="font-size:20px;">"Awesome List of 70 New Google Now Voice Commands" - trendblog.net/list-of-google-now-voice-commands-infographic</li>
+				<li style="font-size:20px;">"Complexity of Inference in Bayesian Networks - Building Intelligent Systems" - hips.seas.harvard.edu/blog/2013/01/24/complexity-of-inference-in-bayes-nets</li>
+				<li style="font-size:20px;">"Rest APIs | Twitter Developers" - dev.twitter.com/rest/public</li>
+				<li style="font-size:20px;">"GET search/ tweets" - dev.twitter.com/rest/reference/get/search/tweets</li>
+				<li style="font-size:20px;">"Twitter API v1.1 Tweet search JSON API" - api.twitter.com/1.1/search/tweets.json</li>
+			</ul>
+			</p>
+		</div>
+		<div class="step" data-x="31500", data-y="0">
+			<p class="title last">Thank you!</p>
+		</div>
+
+	</div>
+	<p id="page"></p>
+
+	<p id="main-date">10th September 2015</p>
+	<script src="js/impress.js"></script>
+	<script src="js/jquery.min.js"></script>
+	<script>impress().init();</script>
+	<script>
+		$(function(){
+			len=0;
+			v=$(".step").each(function(){
+				len++;
+			})
+			$("#page").text("1 / "+len);
+			$(document).keydown(function(){
+				setTimeout(function(){
+					c=parseInt($(".step.active").attr("data-x"))/1500+2;
+					$("#page").text(c+" / "+len);
+				},1200)
+			})
+
+		})
+	</script>
+	<script>
+	</script>
+</body>
+</html>
