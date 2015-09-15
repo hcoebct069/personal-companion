@@ -1,4 +1,6 @@
-
+#pg-n{
+	display:none;
+}
 #page{
 	position: fixed;
 	right: 20px;
