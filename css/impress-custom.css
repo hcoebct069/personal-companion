@@ -95,3 +95,6 @@ p.title.last{
 #pg-n{
 	float: right;
 }
+.left-align{
+	text-align: left;
+}
